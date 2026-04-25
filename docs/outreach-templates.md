@@ -3,6 +3,17 @@
 A working library of email templates for getting authorized as a reseller of
 consumer brands and onboarding with primary distributors.
 
+> **Current credentials state (update this header as items issue):**
+> - W-9: ready to send
+> - FL Annual Resale Certificate (DR-13): active
+> - EIN: verified, last 4 on request
+> - Certificate of Insurance: in placement (omit from emails until bound)
+> - D-U-N-S: in issuance (omit from emails until issued)
+>
+> Templates below reflect the current state. As items issue, edit the bullet
+> lists to add them back. Never claim a document you cannot produce within 24
+> hours of a brand reviewer asking for it.
+
 ## Index
 
 1. [Cold outreach: Brand-direct wholesale account](#1-cold-outreach-brand-direct-wholesale-account)
@@ -23,7 +34,7 @@ brands have a wholesale form on their site. If they don't, this email goes to wh
 handles wholesale inquiries (often `wholesale@brand.com`, `sales@brand.com`, or via
 LinkedIn to a Sales / Trade Marketing manager).
 
-**From:** `purchasing@pernikuswholesale.com`
+**From:** `ricardo@pernikuswholesale.com`
 **Subject:** Wholesale account inquiry — Pernikus LLC (Florida)
 
 ```
@@ -42,9 +53,9 @@ full MAP compliance.
 For your review:
   • EIN-verified Florida LLC, established 2023
   • Active FL Annual Resale Certificate (DR-13)
-  • General Liability + Product Liability insurance ($1M / $2M)
-  • D-U-N-S registered for vendor onboarding
-  • Documentation packet (W-9, COI, resale cert) available the same business day
+  • W-9 and resale certificate available the same business day
+  • Public credentials page at pernikuswholesale.com/credentials
+  • [Add when issued: GL + Product Liability insurance, D-U-N-S]
 
 Could you point me to the right person on your wholesale team, or share
 your reseller application packet? I'm happy to start with a small initial
@@ -53,7 +64,7 @@ order to demonstrate sell-through.
 Thanks,
 Ricardo Siberio
 Pernikus LLC
-purchasing@pernikuswholesale.com  •  (407) 881-7996
+ricardo@pernikuswholesale.com  •  (407) 881-7996
 pernikuswholesale.com
 ```
 
@@ -66,7 +77,7 @@ pernikuswholesale.com
 Foods, etc.). These are usually portal applications, but the introductory email helps
 get a human assigned to your account.
 
-**From:** `purchasing@pernikuswholesale.com`
+**From:** `ricardo@pernikuswholesale.com`
 **Subject:** New retail account application — Pernikus LLC, Orlando FL
 
 ```
@@ -86,10 +97,9 @@ Brief profile:
 Onboarding documents ready:
   • W-9 (signed)
   • FL Annual Resale Certificate (DR-13)
-  • Certificate of Insurance ($1M GL / $2M aggregate, $1M Product Liability)
-  • D-U-N-S number
   • Bank reference letter on request
   • Trade references on request
+  • [Add when issued: Certificate of Insurance, D-U-N-S]
 
 Could you send me the new-account application packet, or point me to the
 correct portal? I can have all paperwork returned within one business day
@@ -98,7 +108,7 @@ of receipt.
 Thank you,
 Ricardo Siberio
 Pernikus LLC
-purchasing@pernikuswholesale.com  •  (407) 881-7996
+ricardo@pernikuswholesale.com  •  (407) 881-7996
 ```
 
 ---
@@ -109,7 +119,7 @@ purchasing@pernikuswholesale.com  •  (407) 881-7996
 beauty, supplements, premium snacks). Often a form, but if you have to email,
 this is the version.
 
-**From:** `purchasing@pernikuswholesale.com`
+**From:** `ricardo@pernikuswholesale.com`
 **Subject:** Authorized reseller application — Pernikus LLC
 
 ```
@@ -134,13 +144,14 @@ Could you share your authorized-reseller agreement and the application
 process? I'd like to start with [1–3 specific SKUs] and grow the account
 based on sell-through.
 
-Documentation packet (W-9, COI, FL Resale Certificate, D-U-N-S) available
-same-day from compliance@pernikuswholesale.com.
+Documentation packet (W-9, FL Resale Certificate) available same-day from
+compliance@pernikuswholesale.com. Insurance and D-U-N-S are in onboarding
+and can be confirmed directly with our compliance team.
 
 Thanks,
 Ricardo Siberio
 Pernikus LLC
-purchasing@pernikuswholesale.com  •  (407) 881-7996
+ricardo@pernikuswholesale.com  •  (407) 881-7996
 pernikuswholesale.com
 ```
 
@@ -163,10 +174,11 @@ We respect MAP policies, brand authorization restrictions, and channel
 guidelines. We do not engage in unauthorized cross-border diversion or
 gray-market sourcing.
 
-We carry full vendor-onboarding documentation: EIN, FL Annual Resale
-Certificate, W-9, Certificate of Insurance ($1M/$2M GL plus Product
-Liability), and D-U-N-S registration. References and COI available on
-request to compliance@pernikuswholesale.com.
+We carry vendor-onboarding documentation: EIN-verified, active FL Annual
+Resale Certificate, and signed W-9 ready to issue. Certificate of
+Insurance and D-U-N-S registration are in onboarding. Current standing on
+each item is published at pernikuswholesale.com/credentials and shared
+directly by our compliance team at compliance@pernikuswholesale.com.
 ```
 
 ---
