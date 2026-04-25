@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed": "tsx scripts/seed.ts"
+    "seed": "tsx scripts/seed.ts",
+    "import:amazon": "tsx scripts/import-amazon.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
