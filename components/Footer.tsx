@@ -8,11 +8,14 @@ export function Footer() {
     <footer className="mt-16 border-t border-slate-200 bg-navy-950 text-slate-300">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2">
-            <span className="relative h-9 w-9 overflow-hidden rounded bg-white">
-              <Image src="/logo.svg" alt={SITE.legalName} fill sizes="36px" />
-            </span>
-            <span className="text-base font-semibold text-white">{SITE.name}</span>
+          <div className="inline-block rounded-lg bg-white p-3">
+            <Image
+              src="/logo.png"
+              alt={SITE.legalName}
+              width={560}
+              height={420}
+              className="h-16 w-auto"
+            />
           </div>
           <p className="mt-4 max-w-md text-sm leading-6 text-slate-400">
             Florida-based wholesale distributor and multi-channel retailer of consumer

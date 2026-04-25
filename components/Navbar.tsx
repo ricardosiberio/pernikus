@@ -21,16 +21,15 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="relative h-9 w-9 overflow-hidden rounded bg-navy-900">
-            <Image src="/logo.svg" alt="Pernikus LLC" fill sizes="36px" priority />
-          </span>
-          <div className="leading-tight">
-            <div className="text-base font-semibold text-navy-950">Pernikus LLC</div>
-            <div className="hidden text-[10px] font-medium uppercase tracking-widest text-slate-500 sm:block">
-              Everyday goods, shipped from Florida
-            </div>
-          </div>
+        <Link href="/" aria-label="Pernikus LLC" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Pernikus LLC"
+            width={560}
+            height={420}
+            priority
+            className="h-12 w-auto sm:h-14"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

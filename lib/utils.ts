@@ -25,7 +25,7 @@ export const SITE = {
     zip: "32837",
     country: "USA",
   },
-  established: 2024,
+  established: 2023,
 } as const;
 
 export const CATEGORIES = [
