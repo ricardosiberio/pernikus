@@ -34,7 +34,7 @@ export const SITE = {
     establishedYear: 2023,
     einLast4: "" as string, // e.g. "1234" once issued; empty = "Available on request"
     sunbizDocumentNumber: "" as string, // FL Sunbiz filing number, e.g. L23000XXXXXX
-    flResaleCertificate: "in-progress" as "active" | "in-progress" | "",
+    flResaleCertificate: "active" as "active" | "in-progress" | "",
     dunsNumber: "" as string, // 9-digit, format with dashes when set: "123-456-789"
     amazonStorefrontUrl: "" as string, // full URL to Amazon storefront
     insurance: {
