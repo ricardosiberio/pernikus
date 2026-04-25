@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, SITE } from "@/lib/utils";
+
+const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_CHECKOUT_ENABLED === "true";
 
 export default function CartPage() {
   const items = useCart((s) => s.items);
@@ -18,6 +20,35 @@ export default function CartPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => setHydrated(true), []);
+
+  const mailtoHref = useMemo(() => {
+    const lines = items.map(
+      (i) =>
+        `- ${i.title}${i.caseSize ? ` (${i.caseSize})` : ""} x ${i.quantity} @ ${formatPrice(
+          i.priceCents
+        )} = ${formatPrice(i.priceCents * i.quantity)}`
+    );
+    const body = [
+      "Hello Pernikus team,",
+      "",
+      "I'd like to place the following order. Please reply with payment terms, lead time, and freight quote.",
+      "",
+      ...lines,
+      "",
+      `Subtotal: ${formatPrice(subtotal)}`,
+      "",
+      "Company:",
+      "Contact name:",
+      "Phone:",
+      "Shipping address:",
+      "Resale certificate (attach):",
+      "",
+      "Thanks,",
+    ].join("\n");
+    return `mailto:${SITE.email}?subject=${encodeURIComponent(
+      "Wholesale order request"
+    )}&body=${encodeURIComponent(body)}`;
+  }, [items, subtotal]);
 
   const handleCheckout = async () => {
     setSubmitting(true);
@@ -152,20 +183,38 @@ export default function CartPage() {
               <dd className="font-semibold text-navy-950">{formatPrice(subtotal)}</dd>
             </div>
           </dl>
-          <button
-            type="button"
-            onClick={handleCheckout}
-            disabled={submitting}
-            className="mt-6 inline-flex w-full items-center justify-center rounded bg-navy-900 px-6 py-3 text-sm font-semibold text-white hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-slate-300"
-          >
-            {submitting ? "Redirecting to Stripe…" : "Secure Checkout"}
-          </button>
-          {error && (
-            <p className="mt-3 text-xs font-medium text-red-700">{error}</p>
+          {CHECKOUT_ENABLED ? (
+            <>
+              <button
+                type="button"
+                onClick={handleCheckout}
+                disabled={submitting}
+                className="mt-6 inline-flex w-full items-center justify-center rounded bg-navy-900 px-6 py-3 text-sm font-semibold text-white hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-slate-300"
+              >
+                {submitting ? "Redirecting to Stripe…" : "Secure Checkout"}
+              </button>
+              {error && (
+                <p className="mt-3 text-xs font-medium text-red-700">{error}</p>
+              )}
+              <p className="mt-3 text-[11px] leading-5 text-slate-500">
+                Payments are processed by Stripe. We never see or store your card details.
+              </p>
+            </>
+          ) : (
+            <>
+              <a
+                href={mailtoHref}
+                className="mt-6 inline-flex w-full items-center justify-center rounded bg-navy-900 px-6 py-3 text-sm font-semibold text-white hover:bg-navy-800"
+              >
+                Request Order via Email
+              </a>
+              <p className="mt-3 text-[11px] leading-5 text-slate-500">
+                We confirm pricing, freight, and payment terms by email. New accounts:
+                please include your resale certificate. Most orders ship within 3 to 5
+                business days from our Florida operations.
+              </p>
+            </>
           )}
-          <p className="mt-3 text-[11px] leading-5 text-slate-500">
-            Payments are processed by Stripe. We never see or store your card details.
-          </p>
         </aside>
       </div>
     </CartLayout>
