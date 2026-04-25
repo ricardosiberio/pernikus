@@ -77,6 +77,11 @@ export function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/credentials" className="text-slate-400 hover:text-white">
+                Credentials &amp; Compliance
+              </Link>
+            </li>
+            <li>
               <Link href="/contact" className="text-slate-400 hover:text-white">
                 Contact
               </Link>

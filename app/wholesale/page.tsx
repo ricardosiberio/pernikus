@@ -182,6 +182,12 @@ export default function WholesalePage() {
             >
               Send a message
             </Link>
+            <Link
+              href="/credentials"
+              className="inline-flex items-center justify-center rounded-md border border-white/30 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
+            >
+              View credentials &amp; compliance
+            </Link>
             <a
               href={`mailto:${SITE.email}?subject=Brand%20Partner%20Inquiry`}
               className="inline-flex items-center justify-center rounded-md border border-white/30 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"

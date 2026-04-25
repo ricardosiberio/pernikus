@@ -27,6 +27,25 @@ export const SITE = {
     country: "USA",
   },
   established: 2023,
+  credentials: {
+    legalEntity: "Pernikus LLC",
+    entityType: "Limited Liability Company",
+    jurisdiction: "State of Florida, USA",
+    establishedYear: 2023,
+    einLast4: "" as string, // e.g. "1234" once issued; empty = "Available on request"
+    sunbizDocumentNumber: "" as string, // FL Sunbiz filing number, e.g. L23000XXXXXX
+    flResaleCertificate: "active" as "active" | "in-progress" | "",
+    dunsNumber: "" as string, // 9-digit, format with dashes when set: "123-456-789"
+    amazonStorefrontUrl: "" as string, // full URL to Amazon storefront
+    insurance: {
+      insurer: "" as string, // e.g. "Hiscox" or "Next Insurance"
+      generalLiability: "$1M / $2M aggregate",
+      productLiability: "$1M",
+      coiOnRequest: true,
+    },
+    bankReferenceOnRequest: true,
+    tradeReferencesOnRequest: true,
+  },
 } as const;
 
 export const CATEGORIES = [
