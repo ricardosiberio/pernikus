@@ -3,7 +3,7 @@ import Image from "next/image";
 import { CATEGORIES, SITE } from "@/lib/utils";
 
 export function Footer() {
-  const year = 2026;
+  const year = new Date().getFullYear();
   return (
     <footer className="mt-16 border-t border-slate-200 bg-navy-950 text-slate-300">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
