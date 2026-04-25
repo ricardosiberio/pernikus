@@ -39,10 +39,10 @@ export default function CredentialsPage() {
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">
             Public business verification information intended for distributor
             onboarding, brand-partner compliance reviews, and procurement KYC.
-            Full documentation packets &mdash; W-9, Certificate of Insurance,
-            Florida Annual Resale Certificate, bank reference, and trade
-            references &mdash; are issued the same business day on request to
-            our compliance team.
+            Documentation packets &mdash; W-9, applicable tax certificates,
+            insurance, and references &mdash; are issued promptly on request to
+            our compliance team. Items currently in onboarding are noted below
+            so reviewers always see an accurate snapshot of our standing.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -123,17 +123,25 @@ export default function CredentialsPage() {
             },
             {
               label: "General Liability",
-              value: C.insurance.generalLiability,
+              value:
+                C.insurance.insurer && C.insurance.generalLiability
+                  ? C.insurance.generalLiability
+                  : "Pending placement",
             },
             {
               label: "Product Liability",
-              value: C.insurance.productLiability,
+              value:
+                C.insurance.insurer && C.insurance.productLiability
+                  ? C.insurance.productLiability
+                  : "Pending placement",
             },
             {
               label: "Certificate of Insurance",
-              value: C.insurance.coiOnRequest
-                ? "Available on request, addressed to your specific certificate holder"
-                : "On file",
+              value: C.insurance.insurer
+                ? C.insurance.coiOnRequest
+                  ? "Available on request, addressed to your specific certificate holder"
+                  : "On file"
+                : "Available once policy is active",
             },
           ]}
         />

@@ -95,8 +95,8 @@ export default function WholesalePage() {
             />
             <ValueCard
               icon={<Building2 className="h-6 w-6" />}
-              title="U.S. registered, fully documented"
-              body="Florida LLC in good standing. EIN, FL Annual Resale Certificate, W-9, and Certificate of Insurance available on request. D-U-N-S available for vendor onboarding."
+              title="U.S. registered & onboarding-ready"
+              body="Florida LLC in good standing, EIN-verified, with a W-9 ready to issue. Florida Annual Resale Certificate, Certificate of Insurance, and D-U-N-S registration are in onboarding and can be confirmed directly with our compliance team."
             />
             <ValueCard
               icon={<Handshake className="h-6 w-6" />}
@@ -111,7 +111,7 @@ export default function WholesalePage() {
             <ValueCard
               icon={<FileText className="h-6 w-6" />}
               title="Clean paperwork"
-              body="W-9, COI, resale certificate, banking and trade references, and signed reseller agreements turned around quickly. We are easy to onboard."
+              body="W-9, banking and trade references, and signed reseller agreements turned around quickly. Tax certificates and insurance documents shared as soon as they are placed. We are easy to onboard."
             />
             <ValueCard
               icon={<CheckCircle2 className="h-6 w-6" />}

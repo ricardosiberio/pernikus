@@ -34,13 +34,13 @@ export const SITE = {
     establishedYear: 2023,
     einLast4: "" as string, // e.g. "1234" once issued; empty = "Available on request"
     sunbizDocumentNumber: "" as string, // FL Sunbiz filing number, e.g. L23000XXXXXX
-    flResaleCertificate: "active" as "active" | "in-progress" | "",
+    flResaleCertificate: "in-progress" as "active" | "in-progress" | "",
     dunsNumber: "" as string, // 9-digit, format with dashes when set: "123-456-789"
     amazonStorefrontUrl: "" as string, // full URL to Amazon storefront
     insurance: {
-      insurer: "" as string, // e.g. "Hiscox" or "Next Insurance"
-      generalLiability: "$1M / $2M aggregate",
-      productLiability: "$1M",
+      insurer: "" as string, // e.g. "Hiscox" or "Next Insurance" — empty hides specific coverage amounts
+      generalLiability: "" as string, // e.g. "$1M / $2M aggregate"
+      productLiability: "" as string, // e.g. "$1M"
       coiOnRequest: true,
     },
     bankReferenceOnRequest: true,

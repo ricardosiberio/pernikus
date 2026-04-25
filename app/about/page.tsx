@@ -48,10 +48,12 @@ export default function AboutPage() {
               traceability our trade partners rely on.
             </p>
             <p>
-              We are an Employer Identification Number (EIN) verified U.S. business with
-              an active Florida Annual Resale Certificate for Sales Tax. W-9s, resale
-              certificates, certificates of liability insurance, and bank references are
-              available on request through our wholesale onboarding workflow.
+              We are an Employer Identification Number (EIN) verified U.S. business
+              registered in Florida. Tax certificates, liability insurance, and
+              D-U-N-S registration are managed through our compliance workflow.
+              W-9s and current standing on each item are issued on request through
+              our compliance team, with anything in onboarding clearly disclosed
+              on our public credentials page.
             </p>
           </div>
         </div>
@@ -78,7 +80,7 @@ export default function AboutPage() {
             {[
               {
                 title: "Verified business standing",
-                body: "U.S. registered LLC in good standing, EIN on file, and an active Florida Annual Resale Certificate. Automated document-sharing for KYC and onboarding compliance \u2014 W-9, COI, and resale certificate packages issued the same business day.",
+                body: "U.S. registered Florida LLC in good standing with EIN on file and a W-9 ready to issue. Onboarding documents \u2014 tax certificates, insurance, and D-U-N-S \u2014 are tracked through our compliance workflow and current standing on each item is shared transparently on our credentials page.",
               },
               {
                 title: "Multi-channel sell-through",
@@ -94,7 +96,7 @@ export default function AboutPage() {
               },
               {
                 title: "Tier-1 distributor ready",
-                body: "Onboarding paperwork formatted to the standards of national distributors, including W-9, COI, and references on request.",
+                body: "Onboarding paperwork formatted to the standards of national distributors. Documentation requests routed to a dedicated compliance contact and returned promptly with current standing on each item.",
               },
               {
                 title: "Long-term partnerships",
