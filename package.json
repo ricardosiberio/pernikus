@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "seed": "tsx scripts/seed.ts",
-    "import:amazon": "tsx scripts/import-amazon.ts"
+    "import:amazon": "tsx scripts/import-amazon.ts",
+    "list:missing-images": "tsx scripts/list-missing-images.ts",
+    "cleanup:placeholders": "tsx scripts/cleanup-placeholders.ts",
+    "attach:images": "tsx scripts/attach-images.ts",
+    "delete:product": "tsx scripts/delete-product.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local-only product import staging
+/products/
+/Listings.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
