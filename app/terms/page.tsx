@@ -94,7 +94,7 @@ export default function TermsPage() {
       <p>
         These Terms are governed by the laws of the State of Florida, without regard
         to its conflict of laws principles. Any dispute arising under these Terms will
-        be brought exclusively in the state or federal courts located in Lake County,
+        be brought exclusively in the state or federal courts located in Orlando,
         Florida, and the parties consent to the personal jurisdiction of those
         courts.
       </p>

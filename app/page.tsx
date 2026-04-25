@@ -78,7 +78,7 @@ export default async function HomePage() {
           <ValueProp
             icon={<Building2 className="h-6 w-6" />}
             title="Family-run, Florida-based"
-            body="Headquartered in Lake County, Florida. A small U.S. operator focused on the basics: good prices, honest service, on-time orders."
+            body="Headquartered in Orlando, Florida. A small U.S. operator focused on the basics: good prices, honest service, on-time orders."
           />
         </div>
       </section>

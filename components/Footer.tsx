@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CATEGORIES, SITE } from "@/lib/utils";
 
 export function Footer() {
@@ -8,8 +9,8 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded bg-white font-bold text-navy-900">
-              P
+            <span className="relative h-9 w-9 overflow-hidden rounded bg-white">
+              <Image src="/logo.svg" alt={SITE.legalName} fill sizes="36px" />
             </span>
             <span className="text-base font-semibold text-white">{SITE.name}</span>
           </div>
@@ -96,7 +97,7 @@ export function Footer() {
           <p>
             &copy; {year} {SITE.legalName} &middot; Florida Registered &middot; EIN on File
           </p>
-          <p>Established {SITE.established} &middot; Lake County, Florida, USA</p>
+          <p>Established {SITE.established} &middot; Orlando, Florida, USA</p>
         </div>
       </div>
     </footer>

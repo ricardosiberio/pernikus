@@ -7,7 +7,7 @@ import { SITE } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "About Pernikus LLC",
   description:
-    "Pernikus LLC is a Florida-based wholesale distributor and multi-channel retailer of consumer packaged goods, headquartered in Lake County.",
+    "Pernikus LLC is a Florida-based wholesale distributor and multi-channel retailer of consumer packaged goods, headquartered in Orlando.",
 };
 
 export default function AboutPage() {
@@ -35,7 +35,7 @@ export default function AboutPage() {
           <div className="mt-6 space-y-4 text-base leading-7 text-slate-700">
             <p>
               Pernikus LLC is a privately held wholesale distributor and multi-channel
-              retailer based in Lake County, Florida. We specialize in consumer packaged
+              retailer based in Orlando, Florida. We specialize in consumer packaged
               goods (CPG) across grocery, beverages, household essentials, and health
               &amp; beauty &mdash; the consumable categories that move predictable volume
               for both regional retailers and national online channels.

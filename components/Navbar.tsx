@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
@@ -21,8 +22,8 @@ export function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded bg-navy-900 font-bold text-white">
-            P
+          <span className="relative h-9 w-9 overflow-hidden rounded bg-navy-900">
+            <Image src="/logo.svg" alt="Pernikus LLC" fill sizes="36px" priority />
           </span>
           <div className="leading-tight">
             <div className="text-base font-semibold text-navy-950">Pernikus LLC</div>
