@@ -1,0 +1,104 @@
+import Link from "next/link";
+import { CATEGORIES, SITE } from "@/lib/utils";
+
+export function Footer() {
+  const year = 2026;
+  return (
+    <footer className="mt-16 border-t border-slate-200 bg-navy-950 text-slate-300">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded bg-white font-bold text-navy-900">
+              P
+            </span>
+            <span className="text-base font-semibold text-white">{SITE.name}</span>
+          </div>
+          <p className="mt-4 max-w-md text-sm leading-6 text-slate-400">
+            Florida-based wholesale distributor and multi-channel retailer of consumer
+            packaged goods. Reliable supply chain, transparent operations, professional
+            partnerships.
+          </p>
+          <p className="mt-6 text-sm font-medium text-white">
+            {SITE.phone}
+            <span className="mx-2 text-slate-600">•</span>
+            <a href={`mailto:${SITE.email}`} className="hover:text-white">
+              {SITE.email}
+            </a>
+          </p>
+          <p className="mt-4 text-sm text-slate-400">
+            {SITE.address.line1}
+            <br />
+            {SITE.address.city}, {SITE.address.state} {SITE.address.zip}
+            <br />
+            {SITE.address.country}
+          </p>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+            Shop
+          </h3>
+          <ul className="mt-4 space-y-2 text-sm">
+            {CATEGORIES.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/shop/${c.slug}`}
+                  className="text-slate-400 hover:text-white"
+                >
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link href="/shop" className="text-slate-400 hover:text-white">
+                All Products
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+            Company
+          </h3>
+          <ul className="mt-4 space-y-2 text-sm">
+            <li>
+              <Link href="/about" className="text-slate-400 hover:text-white">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="text-slate-400 hover:text-white">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy" className="text-slate-400 hover:text-white">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="text-slate-400 hover:text-white">
+                Terms of Service
+              </Link>
+            </li>
+            <li>
+              <Link href="/shipping-returns" className="text-slate-400 hover:text-white">
+                Shipping &amp; Returns
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:px-6 lg:px-8">
+          <p>
+            &copy; {year} {SITE.legalName} &middot; Florida Registered &middot; EIN on File
+          </p>
+          <p>Established {SITE.established} &middot; Lake County, Florida, USA</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
