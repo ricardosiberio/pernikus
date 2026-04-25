@@ -7,8 +7,8 @@ consumer brands and onboarding with primary distributors.
 > - W-9: ready to send
 > - FL Annual Resale Certificate (DR-13): active
 > - EIN: verified, last 4 on request
+> - D-U-N-S: 041-702-526 (active)
 > - Certificate of Insurance: in placement (omit from emails until bound)
-> - D-U-N-S: in issuance (omit from emails until issued)
 >
 > Templates below reflect the current state. As items issue, edit the bullet
 > lists to add them back. Never claim a document you cannot produce within 24
@@ -53,9 +53,10 @@ full MAP compliance.
 For your review:
   • EIN-verified Florida LLC, established 2023
   • Active FL Annual Resale Certificate (DR-13)
+  • D-U-N-S Number: 041-702-526
   • W-9 and resale certificate available the same business day
   • Public credentials page at pernikuswholesale.com/credentials
-  • [Add when issued: GL + Product Liability insurance, D-U-N-S]
+  • [Add when issued: GL + Product Liability insurance]
 
 Could you point me to the right person on your wholesale team, or share
 your reseller application packet? I'm happy to start with a small initial
@@ -97,9 +98,10 @@ Brief profile:
 Onboarding documents ready:
   • W-9 (signed)
   • FL Annual Resale Certificate (DR-13)
+  • D-U-N-S Number: 041-702-526
   • Bank reference letter on request
   • Trade references on request
-  • [Add when issued: Certificate of Insurance, D-U-N-S]
+  • [Add when issued: Certificate of Insurance]
 
 Could you send me the new-account application packet, or point me to the
 correct portal? I can have all paperwork returned within one business day
@@ -144,9 +146,9 @@ Could you share your authorized-reseller agreement and the application
 process? I'd like to start with [1–3 specific SKUs] and grow the account
 based on sell-through.
 
-Documentation packet (W-9, FL Resale Certificate) available same-day from
-compliance@pernikuswholesale.com. Insurance and D-U-N-S are in onboarding
-and can be confirmed directly with our compliance team.
+Documentation packet (W-9, FL Resale Certificate, D-U-N-S 041-702-526)
+available same-day from compliance@pernikuswholesale.com. Certificate of
+Insurance is in placement and will be shared as soon as bound.
 
 Thanks,
 Ricardo Siberio
@@ -175,9 +177,9 @@ guidelines. We do not engage in unauthorized cross-border diversion or
 gray-market sourcing.
 
 We carry vendor-onboarding documentation: EIN-verified, active FL Annual
-Resale Certificate, and signed W-9 ready to issue. Certificate of
-Insurance and D-U-N-S registration are in onboarding. Current standing on
-each item is published at pernikuswholesale.com/credentials and shared
+Resale Certificate, signed W-9 ready to issue, and D-U-N-S Number
+041-702-526. Certificate of Insurance is in placement. Current standing
+on each item is published at pernikuswholesale.com/credentials and shared
 directly by our compliance team at compliance@pernikuswholesale.com.
 ```
 
@@ -202,7 +204,7 @@ LLC's account application:
   3. Certificate of Liability Insurance ($1M general / $2M aggregate, $1M
      product liability) — [Insurer Name], policy [#####]
   4. Voided check / bank verification letter
-  5. D-U-N-S number: [#########]
+  5. D-U-N-S number: 041-702-526
 
 Trade references available on request — please let me know if you need them
 in writing.
