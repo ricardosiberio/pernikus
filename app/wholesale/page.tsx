@@ -106,7 +106,7 @@ export default function WholesalePage() {
             <ValueCard
               icon={<TrendingUp className="h-6 w-6" />}
               title="Multi-channel reach"
-              body="Active Amazon FBA storefront with sustained order volume, plus our own website and direct B2B accounts. We expand visibility for the brands we carry."
+              body="A hybrid sell-through model: an Amazon FBA storefront with sustained order velocity, our direct e-commerce site, and regional B2B accounts. We grow shelf presence for the brands we carry instead of cannibalizing their existing channels."
             />
             <ValueCard
               icon={<FileText className="h-6 w-6" />}
@@ -117,6 +117,16 @@ export default function WholesalePage() {
               icon={<CheckCircle2 className="h-6 w-6" />}
               title="Long-term orientation"
               body="We are building a durable retail business, not chasing one-off arbitrage. We commit to consistent reorder cadence and protect the brands we represent."
+            />
+            <ValueCard
+              icon={<TrendingUp className="h-6 w-6" />}
+              title="Brand builders, not box movers"
+              body="We invest in our listings: professional product photography, optimized titles and bullet copy, A+ content where supported, and SEO-driven category placement. Our goal is for your brand to look better in our channels than in most of the unauthorized ones."
+            />
+            <ValueCard
+              icon={<FileText className="h-6 w-6" />}
+              title="Reporting on request"
+              body="Sell-through summaries, sales velocity, and channel-level reporting available to brand managers and category buyers. Quarterly business reviews supported for established accounts."
             />
           </div>
         </div>

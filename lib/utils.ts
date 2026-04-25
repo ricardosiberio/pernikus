@@ -18,6 +18,7 @@ export const SITE = {
   phone: "(407) 881-7996",
   phoneRaw: "+14078817996",
   email: "sales@pernikuswholesale.com",
+  complianceEmail: "compliance@pernikuswholesale.com",
   address: {
     line1: "9550 Satellite Blvd",
     city: "Orlando",

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
 import { SITE } from "@/lib/utils";
 
@@ -79,11 +78,11 @@ export default function AboutPage() {
             {[
               {
                 title: "Verified business standing",
-                body: "U.S. registered LLC in good standing, EIN on file, and an active Florida resale certificate. Documentation packages are sent same-business-day on request.",
+                body: "U.S. registered LLC in good standing, EIN on file, and an active Florida Annual Resale Certificate. Automated document-sharing for KYC and onboarding compliance \u2014 W-9, COI, and resale certificate packages issued the same business day.",
               },
               {
                 title: "Multi-channel sell-through",
-                body: "Active retail accounts across major online marketplaces, with category-managed catalogs, MAP-compliant pricing, and brand-approved listings where required.",
+                body: "Active retail accounts across major online marketplaces, supporting a hybrid strategy of direct-to-consumer e-commerce and regional B2B fulfillment, with category-managed catalogs, MAP-compliant pricing, and brand-approved listings where required.",
               },
               {
                 title: "Predictable fulfillment",
@@ -126,12 +125,12 @@ export default function AboutPage() {
               business day.
             </p>
           </div>
-          <Link
-            href="/contact"
+          <a
+            href={`mailto:${SITE.complianceEmail}?subject=${encodeURIComponent("Onboarding documentation request")}`}
             className="inline-flex items-center gap-2 rounded bg-navy-900 px-6 py-3 text-sm font-semibold text-white hover:bg-navy-800"
           >
             Contact Compliance
-          </Link>
+          </a>
         </div>
       </section>
     </>
