@@ -33,6 +33,8 @@ export const CATEGORIES = [
   { slug: "health-beauty", name: "Health & Beauty" },
   { slug: "household-essentials", name: "Household Essentials" },
   { slug: "beverages", name: "Beverages" },
+  { slug: "toys-games", name: "Toys & Games" },
+  { slug: "apparel", name: "Apparel" },
 ] as const;
 
 export type CategorySlug = (typeof CATEGORIES)[number]["slug"];
