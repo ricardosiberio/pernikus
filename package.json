@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "seed": "tsx scripts/seed.ts",
+    "seed:content": "tsx scripts/seed-content.ts",
     "import:amazon": "tsx scripts/import-amazon.ts",
     "list:missing-images": "tsx scripts/list-missing-images.ts",
     "cleanup:placeholders": "tsx scripts/cleanup-placeholders.ts",
