@@ -11,7 +11,9 @@ const SINGLETON_TYPES = new Set([
   "wholesalePage",
   "credentialsPage",
 ]);
-const SINGLETON_ACTIONS = new Set(["publish", "discardChanges", "restore"]);
+// Hide only destructive actions on singletons. Everything else (publish,
+// save, discard, restore) stays visible.
+const HIDDEN_SINGLETON_ACTIONS = new Set(["delete", "duplicate", "unpublish"]);
 
 export default defineConfig({
   basePath: "/studio",
@@ -91,10 +93,11 @@ export default defineConfig({
       templates.filter(({ schemaType }) => !SINGLETON_TYPES.has(schemaType)),
   },
   document: {
-    // Restrict actions on singletons (no delete, no duplicate, no unpublish)
+    // Hide only destructive actions on singletons (delete, duplicate, unpublish).
+    // Publish, save, discard, restore remain visible.
     actions: (input, context) =>
       SINGLETON_TYPES.has(context.schemaType)
-        ? input.filter(({ action }) => action && SINGLETON_ACTIONS.has(action))
+        ? input.filter(({ action }) => !action || !HIDDEN_SINGLETON_ACTIONS.has(action))
         : input,
   },
 });
