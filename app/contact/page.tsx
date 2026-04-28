@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
-import { SITE } from "@/lib/utils";
+import { getSiteSettings } from "@/lib/sanity-content";
 
+export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Reach the Pernikus LLC team for wholesale onboarding, compliance documentation, or general inquiries.",
+    "Reach our team for wholesale onboarding, compliance documentation, or general inquiries.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const site = await getSiteSettings();
   return (
     <>
       <section className="border-b border-slate-200 bg-navy-950">
@@ -33,22 +35,22 @@ export default function ContactPage() {
             icon={<MapPin className="h-5 w-5" />}
             label="Operations Address"
             lines={[
-              SITE.address.line1,
-              `${SITE.address.city}, ${SITE.address.state}`,
-              SITE.address.country,
+              site.addressLine1,
+              `${site.addressCity}, ${site.addressState}`,
+              site.addressCountry,
             ]}
           />
           <ContactItem
             icon={<Phone className="h-5 w-5" />}
             label="Business Phone"
-            lines={[SITE.phone]}
-            href={`tel:${SITE.phoneRaw}`}
+            lines={[site.phoneDisplay]}
+            href={`tel:${site.phoneRaw}`}
           />
           <ContactItem
             icon={<Mail className="h-5 w-5" />}
             label="Email"
-            lines={[SITE.email]}
-            href={`mailto:${SITE.email}`}
+            lines={[site.salesEmail]}
+            href={`mailto:${site.salesEmail}`}
           />
           <div className="rounded border border-slate-200 bg-slate-50 p-5">
             <p className="text-sm font-semibold text-navy-950">Verification documents</p>

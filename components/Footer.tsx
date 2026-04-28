@@ -1,9 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CATEGORIES, SITE } from "@/lib/utils";
+import { CATEGORIES } from "@/lib/utils";
+import { getSiteSettings } from "@/lib/sanity-content";
 
-export function Footer() {
+export async function Footer() {
+  const site = await getSiteSettings();
   const year = new Date().getFullYear();
+  const displayName = site.displayName || site.legalName;
+
   return (
     <footer className="mt-16 border-t border-slate-200 bg-navy-950 text-slate-300">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
@@ -11,7 +15,7 @@ export function Footer() {
           <div className="inline-block rounded-lg bg-white p-3">
             <Image
               src="/logo.png"
-              alt={SITE.legalName}
+              alt={site.legalName}
               width={560}
               height={420}
               className="h-16 w-auto"
@@ -23,18 +27,24 @@ export function Footer() {
             partnerships.
           </p>
           <p className="mt-6 text-sm font-medium text-white">
-            {SITE.phone}
+            {site.phoneDisplay}
             <span className="mx-2 text-slate-600">•</span>
-            <a href={`mailto:${SITE.email}`} className="hover:text-white">
-              {SITE.email}
+            <a href={`mailto:${site.salesEmail}`} className="hover:text-white">
+              {site.salesEmail}
             </a>
           </p>
           <p className="mt-4 text-sm text-slate-400">
-            {SITE.address.line1}
+            {site.addressLine1}
+            {site.addressLine2 ? (
+              <>
+                <br />
+                {site.addressLine2}
+              </>
+            ) : null}
             <br />
-            {SITE.address.city}, {SITE.address.state} {SITE.address.zip}
+            {site.addressCity}, {site.addressState} {site.addressZip}
             <br />
-            {SITE.address.country}
+            {site.addressCountry}
           </p>
         </div>
 
@@ -108,9 +118,11 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-2 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:px-6 lg:px-8">
           <p>
-            &copy; {year} {SITE.legalName} &middot; Florida Registered &middot; EIN on File
+            &copy; {year} {displayName} &middot; Florida Registered &middot; EIN on File
           </p>
-          <p>Established {SITE.established} &middot; Orlando, Florida, USA</p>
+          <p>
+            Established {site.establishedYear} &middot; {site.addressCity}, {site.addressState}, {site.addressCountry}
+          </p>
         </div>
       </div>
     </footer>

@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
-import { SITE } from "@/lib/utils";
+import { getSiteSettings } from "@/lib/sanity-content";
 
+export const revalidate = 60;
 export const metadata: Metadata = { title: "Privacy Policy" };
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const site = await getSiteSettings();
   return (
     <LegalPage title="Privacy Policy" effectiveDate="January 1, 2026">
       <p>
-        This Privacy Policy describes how {SITE.legalName} (&ldquo;Pernikus,&rdquo;
+        This Privacy Policy describes how {site.legalName} (&ldquo;Pernikus,&rdquo;
         &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) collects, uses, and
         shares information about you when you visit our website, communicate with us,
         or transact with us. By using our website, you agree to the practices described
@@ -54,7 +56,7 @@ export default function PrivacyPage() {
         warehousing partners, shipping carriers, and email and analytics providers
         &mdash; under contractual confidentiality obligations. We may also disclose
         information when required by law, in response to a lawful request, or to
-        protect the rights, property, or safety of {SITE.legalName} or others.
+        protect the rights, property, or safety of {site.legalName} or others.
       </p>
       <p>We do not sell personal information.</p>
 
@@ -70,7 +72,7 @@ export default function PrivacyPage() {
         You may unsubscribe from marketing emails at any time by following the
         unsubscribe link in any such email. You may request access, correction, or
         deletion of personal information we hold about you by emailing{" "}
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. We will respond consistent
+        <a href={`mailto:${site.salesEmail}`}>{site.salesEmail}</a>. We will respond consistent
         with applicable law.
       </p>
 
@@ -92,8 +94,8 @@ export default function PrivacyPage() {
       <h2>Contact</h2>
       <p>
         Questions about this Privacy Policy can be sent to{" "}
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or by mail to{" "}
-        {SITE.legalName}, {SITE.address.city}, {SITE.address.state}, {SITE.address.country}.
+        <a href={`mailto:${site.salesEmail}`}>{site.salesEmail}</a> or by mail to{" "}
+        {site.legalName}, {site.addressCity}, {site.addressState}, {site.addressCountry}.
       </p>
     </LegalPage>
   );

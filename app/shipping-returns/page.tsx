@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
-import { SITE } from "@/lib/utils";
+import { getSiteSettings } from "@/lib/sanity-content";
 
+export const revalidate = 60;
 export const metadata: Metadata = { title: "Shipping & Returns" };
 
-export default function ShippingReturnsPage() {
+export default async function ShippingReturnsPage() {
+  const site = await getSiteSettings();
   return (
     <LegalPage title="Shipping & Returns Policy" effectiveDate="January 1, 2026">
       <p>
         This Shipping &amp; Returns Policy applies to all orders placed with{" "}
-        {SITE.legalName} through this website. Wholesale orders placed under separate
+        {site.legalName} through this website. Wholesale orders placed under separate
         purchase orders or trade contracts are governed by those agreements.
       </p>
 
@@ -51,7 +53,7 @@ export default function ShippingReturnsPage() {
       <p>
         Inspect all shipments upon receipt. Note any visible damage on the carrier
         proof of delivery and contact us within 48 hours of delivery at{" "}
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. For lost shipments, please
+        <a href={`mailto:${site.salesEmail}`}>{site.salesEmail}</a>. For lost shipments, please
         notify us within 14 days of the carrier&rsquo;s last tracking update so we can
         open a claim.
       </p>
@@ -72,7 +74,7 @@ export default function ShippingReturnsPage() {
 
       <h2>How to Initiate a Return</h2>
       <p>
-        Contact <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with your order
+        Contact <a href={`mailto:${site.salesEmail}`}>{site.salesEmail}</a> with your order
         number, the item(s) you wish to return, and the reason for return. We will
         respond with a return authorization (RA) number and instructions. Returns
         without an RA may be refused or delayed.
@@ -95,7 +97,7 @@ export default function ShippingReturnsPage() {
       <h2>Contact</h2>
       <p>
         Questions about shipping or returns can be sent to{" "}
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or by phone at {SITE.phone}.
+        <a href={`mailto:${site.salesEmail}`}>{site.salesEmail}</a> or by phone at {site.phoneDisplay}.
       </p>
     </LegalPage>
   );
