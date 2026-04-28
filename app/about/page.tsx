@@ -4,7 +4,7 @@ import { CheckCircle2 } from "lucide-react";
 import { getAboutContent, getSiteSettings } from "@/lib/sanity-content";
 import { PortableParagraphs } from "@/components/PortableParagraphs";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getAboutContent();

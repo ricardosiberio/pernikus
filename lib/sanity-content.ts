@@ -1,7 +1,17 @@
-import { groq } from "next-sanity";
-import { sanityClient } from "@/sanity/client";
+import { groq, createClient } from "next-sanity";
 import { withTimeout } from "@/lib/with-timeout";
 import { SITE } from "@/lib/utils";
+import { apiVersion, dataset, projectId } from "@/sanity/env";
+
+// Dedicated client with CDN OFF for CMS content fetches.
+// CMS edits should appear quickly; we accept the small latency cost on these
+// (low-frequency) fetches in exchange for fresher data.
+const sanityClient = createClient({
+  projectId: projectId || "missing",
+  dataset,
+  apiVersion,
+  useCdn: false,
+});
 
 /**
  * CMS content fetchers with hardcoded fallbacks.

@@ -3,7 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { getSiteSettings } from "@/lib/sanity-content";
 
-export const revalidate = 60;
+export const revalidate = 10;
 export const metadata: Metadata = {
   title: "Contact Us",
   description:

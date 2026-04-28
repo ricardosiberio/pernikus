@@ -8,7 +8,7 @@ import { CATEGORIES } from "@/lib/utils";
 import { withTimeout } from "@/lib/with-timeout";
 import { getHomeContent } from "@/lib/sanity-content";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 async function getFeaturedProducts(): Promise<SanityProduct[]> {
   try {

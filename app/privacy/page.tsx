@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { getSiteSettings } from "@/lib/sanity-content";
 
-export const revalidate = 60;
+export const revalidate = 10;
 export const metadata: Metadata = { title: "Privacy Policy" };
 
 export default async function PrivacyPage() {

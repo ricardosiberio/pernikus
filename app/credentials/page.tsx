@@ -6,7 +6,7 @@ import {
   substitutePlaceholders,
 } from "@/lib/sanity-content";
 
-export const revalidate = 60;
+export const revalidate = 10;
 
 const ON_REQUEST = "Available on request";
 const IN_ISSUANCE = "In issuance — available on request";
