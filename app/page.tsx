@@ -4,9 +4,8 @@ import { ArrowRight, ShieldCheck, Truck, Building2 } from "lucide-react";
 import { sanityClient } from "@/sanity/client";
 import { featuredProductsQuery, type SanityProduct } from "@/sanity/queries";
 import { ProductCard } from "@/components/ProductCard";
-import { CATEGORIES } from "@/lib/utils";
 import { withTimeout } from "@/lib/with-timeout";
-import { getHomeContent } from "@/lib/sanity-content";
+import { getHomeContent, getAllCategories } from "@/lib/sanity-content";
 
 export const revalidate = 10;
 
@@ -26,9 +25,10 @@ const VALUE_PROP_ICONS = [
 ];
 
 export default async function HomePage() {
-  const [featured, content] = await Promise.all([
+  const [featured, content, categories] = await Promise.all([
     getFeaturedProducts(),
     getHomeContent(),
+    getAllCategories(),
   ]);
 
   return (
@@ -110,7 +110,7 @@ export default async function HomePage() {
           </Link>
         </div>
         <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <Link
               key={c.slug}
               href={`/shop/${c.slug}`}

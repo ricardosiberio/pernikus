@@ -13,6 +13,7 @@
     "list:missing-images": "tsx scripts/list-missing-images.ts",
     "cleanup:placeholders": "tsx scripts/cleanup-placeholders.ts",
     "attach:images": "tsx scripts/attach-images.ts",
+    "audit:images": "tsx scripts/audit-images.ts",
     "delete:product": "tsx scripts/delete-product.ts",
     "list:products": "tsx scripts/list-products.ts",
     "recategorize": "tsx scripts/recategorize.ts"

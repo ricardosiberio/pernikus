@@ -5,16 +5,17 @@ import { sanityClient } from "@/sanity/client";
 import { productsByCategoryQuery, type SanityProduct } from "@/sanity/queries";
 import { ProductCard } from "@/components/ProductCard";
 import { PlaceholderProductCard } from "@/components/PlaceholderProductCard";
-import { CATEGORIES } from "@/lib/utils";
 import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-products";
 import { withTimeout } from "@/lib/with-timeout";
+import { getAllCategories } from "@/lib/sanity-content";
 
 export const revalidate = 60;
 
 type Params = { category: string };
 
-export function generateStaticParams() {
-  return CATEGORIES.map((c) => ({ category: c.slug }));
+export async function generateStaticParams() {
+  const categories = await getAllCategories();
+  return categories.map((c) => ({ category: c.slug }));
 }
 
 export async function generateMetadata({
@@ -23,7 +24,8 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { category } = await params;
-  const meta = CATEGORIES.find((c) => c.slug === category);
+  const categories = await getAllCategories();
+  const meta = categories.find((c) => c.slug === category);
   if (!meta) return {};
   return {
     title: `${meta.name} — Wholesale Catalog`,
@@ -45,7 +47,8 @@ export default async function CategoryPage({
   params: Promise<Params>;
 }) {
   const { category } = await params;
-  const meta = CATEGORIES.find((c) => c.slug === category);
+  const categories = await getAllCategories();
+  const meta = categories.find((c) => c.slug === category);
   if (!meta) notFound();
 
   const products = await getProducts(category);
@@ -74,7 +77,7 @@ export default async function CategoryPage({
           >
             All
           </Link>
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <Link
               key={c.slug}
               href={`/shop/${c.slug}`}

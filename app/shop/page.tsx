@@ -4,9 +4,9 @@ import { sanityClient } from "@/sanity/client";
 import { allProductsQuery, type SanityProduct } from "@/sanity/queries";
 import { ProductCard } from "@/components/ProductCard";
 import { PlaceholderProductCard } from "@/components/PlaceholderProductCard";
-import { CATEGORIES } from "@/lib/utils";
 import { PLACEHOLDER_PRODUCTS } from "@/lib/placeholder-products";
 import { withTimeout } from "@/lib/with-timeout";
+import { getAllCategories } from "@/lib/sanity-content";
 
 export const revalidate = 60;
 
@@ -25,7 +25,10 @@ async function getProducts(): Promise<SanityProduct[]> {
 }
 
 export default async function ShopPage() {
-  const products = await getProducts();
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getAllCategories(),
+  ]);
   const usePlaceholders = process.env.NODE_ENV !== "production" && products.length === 0;
 
   return (
@@ -47,7 +50,7 @@ export default async function ShopPage() {
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-wrap gap-2 px-4 py-4 sm:px-6 lg:px-8">
           <CategoryPill href="/shop" label="All" active />
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <CategoryPill key={c.slug} href={`/shop/${c.slug}`} label={c.name} />
           ))}
         </div>

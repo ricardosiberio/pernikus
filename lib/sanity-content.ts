@@ -1,6 +1,6 @@
 import { groq, createClient } from "next-sanity";
 import { withTimeout } from "@/lib/with-timeout";
-import { SITE } from "@/lib/utils";
+import { SITE, CATEGORIES as FALLBACK_CATEGORIES } from "@/lib/utils";
 import { apiVersion, dataset, projectId } from "@/sanity/env";
 
 // Dedicated client with CDN OFF for CMS content fetches.
@@ -31,6 +31,35 @@ async function safeFetch<T>(query: string): Promise<T | null> {
   } catch {
     return null;
   }
+}
+
+// =====================================================================
+// Categories (dynamic — newly created Sanity categories appear automatically)
+// =====================================================================
+
+export type Category = {
+  slug: string;
+  name: string;
+};
+
+const allCategoriesQuery = groq`
+  *[_type == "category" && defined(slug.current) && defined(name)]
+    | order(coalesce(order, 999) asc, name asc) {
+      "slug": slug.current,
+      name
+    }
+`;
+
+/**
+ * Fetch all categories from Sanity, ordered by `order` then name.
+ * Falls back to the hardcoded list in lib/utils.ts if Sanity is unreachable.
+ */
+export async function getAllCategories(): Promise<Category[]> {
+  const result = await safeFetch<Category[]>(allCategoriesQuery);
+  if (!result || result.length === 0) {
+    return FALLBACK_CATEGORIES.map((c) => ({ slug: c.slug, name: c.name }));
+  }
+  return result;
 }
 
 /** Convert plain-text paragraphs to a minimal Portable Text array for defaults. */

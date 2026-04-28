@@ -4,7 +4,11 @@
  * Reads every image in ./products/ named <ASIN>.<ext> (jpg/jpeg/png/webp),
  * uploads it to Sanity, and links it to the matching product (id = "prod-<ASIN>").
  *
- * Usage: npm run attach:images
+ * Usage:
+ *   npm run attach:images                    # only attach to products with NO image
+ *   npm run attach:images -- --force         # also REPLACE existing images
+ *   npm run attach:images -- B0ABC123        # only process this ASIN (replaces by default)
+ *   npm run attach:images -- B0ABC123 B0XYZ  # process multiple specific ASINs
  */
 import { createClient } from "@sanity/client";
 import { config } from "dotenv";
@@ -38,12 +42,36 @@ async function main() {
     process.exit(1);
   }
 
-  const files = (await readdir(IMG_DIR)).filter((f) =>
+  // Parse CLI args: --force flag and any explicit ASINs to limit to.
+  const args = process.argv.slice(2);
+  const forceAll = args.includes("--force");
+  const asinAllowlist = new Set(
+    args
+      .filter((a) => !a.startsWith("--"))
+      .map((a) => a.toUpperCase())
+  );
+  const hasAllowlist = asinAllowlist.size > 0;
+  // When user names specific ASINs, default to replace (otherwise it's
+  // surprising — they explicitly listed those because they want them updated).
+  const replaceExisting = forceAll || hasAllowlist;
+
+  let files = (await readdir(IMG_DIR)).filter((f) =>
     VALID_EXTS.has(extname(f).toLowerCase())
   );
-  console.log(`Found ${files.length} image files in ${IMG_DIR}`);
+
+  if (hasAllowlist) {
+    files = files.filter((f) =>
+      asinAllowlist.has(basename(f, extname(f)).toUpperCase())
+    );
+  }
+
+  console.log(
+    `Found ${files.length} image file(s) to process in ${IMG_DIR}` +
+      (replaceExisting ? "  [REPLACE mode — existing images will be overwritten]" : "")
+  );
 
   let attached = 0;
+  let replaced = 0;
   let skipped = 0;
   const unmatched: string[] = [];
 
@@ -62,8 +90,9 @@ async function main() {
       unmatched.push(file);
       continue;
     }
-    if (exists.image) {
-      console.log("⊙ already has image — skipped");
+    const hadImage = Boolean(exists.image);
+    if (hadImage && !replaceExisting) {
+      console.log("⊙ already has image — skipped (use --force to replace)");
       skipped++;
       continue;
     }
@@ -85,11 +114,18 @@ async function main() {
       })
       .commit();
 
-    attached++;
-    console.log("✓ attached");
+    if (hadImage) {
+      replaced++;
+      console.log("✓ replaced");
+    } else {
+      attached++;
+      console.log("✓ attached");
+    }
   }
 
-  console.log(`\n✓ Attached ${attached}, skipped ${skipped}, unmatched ${unmatched.length}.`);
+  console.log(
+    `\n✓ Attached ${attached}, replaced ${replaced}, skipped ${skipped}, unmatched ${unmatched.length}.`
+  );
   if (unmatched.length > 0) {
     console.log("Unmatched files (no Sanity product with that ASIN):");
     unmatched.forEach((f) => console.log(`   - ${f}`));

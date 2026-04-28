@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CATEGORIES } from "@/lib/utils";
-import { getSiteSettings } from "@/lib/sanity-content";
+import { getSiteSettings, getAllCategories } from "@/lib/sanity-content";
 
 export async function Footer() {
-  const site = await getSiteSettings();
+  const [site, categories] = await Promise.all([
+    getSiteSettings(),
+    getAllCategories(),
+  ]);
   const year = new Date().getFullYear();
   const displayName = site.displayName || site.legalName;
 
@@ -53,7 +55,7 @@ export async function Footer() {
             Shop
           </h3>
           <ul className="mt-4 space-y-2 text-sm">
-            {CATEGORIES.map((c) => (
+            {categories.map((c) => (
               <li key={c.slug}>
                 <Link
                   href={`/shop/${c.slug}`}

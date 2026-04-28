@@ -40,6 +40,9 @@ yarn-error.log*
 /products/
 /Listings.txt
 
+# generated audit reports
+/products-audit.html
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
