@@ -6,6 +6,7 @@ import { featuredProductsQuery, type SanityProduct } from "@/sanity/queries";
 import { ProductCard } from "@/components/ProductCard";
 import { CATEGORIES } from "@/lib/utils";
 import { withTimeout } from "@/lib/with-timeout";
+import { getHomeContent } from "@/lib/sanity-content";
 
 export const revalidate = 60;
 
@@ -17,8 +18,18 @@ async function getFeaturedProducts(): Promise<SanityProduct[]> {
   }
 }
 
+// Icons stay in code (not in CMS) — match value props by index
+const VALUE_PROP_ICONS = [
+  <Truck key="truck" className="h-6 w-6" />,
+  <ShieldCheck key="shield" className="h-6 w-6" />,
+  <Building2 key="building" className="h-6 w-6" />,
+];
+
 export default async function HomePage() {
-  const featured = await getFeaturedProducts();
+  const [featured, content] = await Promise.all([
+    getFeaturedProducts(),
+    getHomeContent(),
+  ]);
 
   return (
     <>
@@ -36,61 +47,59 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/85 to-navy-950/40" />
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-navy-200">
-            Pernikus LLC &middot; Florida
+            {content.heroEyebrow}
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Everyday goods, reliably delivered.
+            {content.heroHeadline}
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            Pantry staples, beverages, household essentials, and personal care &mdash;
-            sourced from trusted brands and shipped from our Florida operations.
+            {content.heroSubheadline}
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Link
-              href="/shop"
-              className="inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-slate-200"
-            >
-              Shop Now
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 rounded border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              Our Story
-            </Link>
+            {content.heroPrimaryCtaLabel && (
+              <Link
+                href={content.heroPrimaryCtaUrl || "/shop"}
+                className="inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-slate-200"
+              >
+                {content.heroPrimaryCtaLabel}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
+            {content.heroSecondaryCtaLabel && (
+              <Link
+                href={content.heroSecondaryCtaUrl || "/about"}
+                className="inline-flex items-center gap-2 rounded border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {content.heroSecondaryCtaLabel}
+              </Link>
+            )}
           </div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-px bg-slate-200 md:grid-cols-3">
-          <ValueProp
-            icon={<Truck className="h-6 w-6" />}
-            title="Fast, tracked shipping"
-            body="Orders ship from our Florida warehouse with tracking on every package. Most orders arrive in 3 to 5 business days."
-          />
-          <ValueProp
-            icon={<ShieldCheck className="h-6 w-6" />}
-            title="Brands you already trust"
-            body="A curated catalog across grocery, beverages, household, and personal care &mdash; the brands you already keep at home."
-          />
-          <ValueProp
-            icon={<Building2 className="h-6 w-6" />}
-            title="Family-run, Florida-based"
-            body="Headquartered in Orlando, Florida. A small U.S. operator focused on the basics: good prices, honest service, on-time orders."
-          />
-        </div>
-      </section>
+      {content.valueProps.length > 0 && (
+        <section className="border-b border-slate-200 bg-white">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-px bg-slate-200 md:grid-cols-3">
+            {content.valueProps.map((vp, i) => (
+              <ValueProp
+                key={`${vp.title}-${i}`}
+                icon={VALUE_PROP_ICONS[i % VALUE_PROP_ICONS.length]}
+                title={vp.title}
+                body={vp.body}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-              Categories
+              {content.categoriesEyebrow}
             </p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight text-navy-950">
-              Shop by category
+              {content.categoriesHeadline}
             </h2>
           </div>
           <Link
@@ -125,10 +134,10 @@ export default async function HomePage() {
         <section className="border-t border-slate-200 bg-slate-50">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-              Featured
+              {content.featuredEyebrow}
             </p>
             <h2 className="mt-2 text-3xl font-bold tracking-tight text-navy-950">
-              Popular items this quarter
+              {content.featuredHeadline}
             </h2>
             <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {featured.map((p) => (
@@ -143,23 +152,24 @@ export default async function HomePage() {
         <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-4 py-12 sm:px-6 md:flex-row md:items-center lg:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-navy-200">
-              For Wholesale &amp; Trade
+              {content.wholesaleCtaEyebrow}
             </p>
             <h2 className="mt-2 text-2xl font-bold text-white sm:text-3xl">
-              Buying for a store or distributor?
+              {content.wholesaleCtaHeadline}
             </h2>
             <p className="mt-2 max-w-2xl text-slate-300">
-              We support resale and trade accounts. W-9, EIN letter, and Florida resale
-              certificate available on request.
+              {content.wholesaleCtaBody}
             </p>
           </div>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-navy-950 hover:bg-slate-200"
-          >
-            Contact Our Team
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+          {content.wholesaleCtaButtonLabel && (
+            <Link
+              href={content.wholesaleCtaButtonUrl || "/contact"}
+              className="inline-flex items-center gap-2 rounded bg-white px-6 py-3 text-sm font-semibold text-navy-950 hover:bg-slate-200"
+            >
+              {content.wholesaleCtaButtonLabel}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
         </div>
       </section>
     </>

@@ -1,64 +1,79 @@
 import type { Metadata } from "next";
 import { CheckCircle2, ExternalLink, FileText, ShieldCheck } from "lucide-react";
-import { SITE } from "@/lib/utils";
+import {
+  getCredentialsPageContent,
+  getSiteSettings,
+  substitutePlaceholders,
+} from "@/lib/sanity-content";
 
-export const metadata: Metadata = {
-  title: "Credentials & Compliance",
-  description:
-    "Public business verification information for Pernikus LLC. Legal entity, tax registrations, insurance, and onboarding documentation for distributor and brand-partner compliance teams.",
-};
+export const revalidate = 60;
 
-const C = SITE.credentials;
 const ON_REQUEST = "Available on request";
 const IN_ISSUANCE = "In issuance — available on request";
 
-export default function CredentialsPage() {
-  const sunbizUrl = C.sunbizDocumentNumber
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getCredentialsPageContent();
+  return {
+    title: content.seoTitle,
+    description: content.seoDescription,
+  };
+}
+
+export default async function CredentialsPage() {
+  const [content, site] = await Promise.all([
+    getCredentialsPageContent(),
+    getSiteSettings(),
+  ]);
+
+  const ctx = {
+    legalName: site.legalName,
+    complianceEmail: site.complianceEmail,
+  };
+
+  const sunbizUrl = site.sunbizDocumentNumber
     ? `https://search.sunbiz.org/Inquiry/CorporationSearch/SearchResultDetail?inquirytype=DocumentNumber&directionType=Initial&searchNameOrder=&aggregateId=&searchTerm=${encodeURIComponent(
-        C.sunbizDocumentNumber
+        site.sunbizDocumentNumber
       )}`
     : "https://search.sunbiz.org/";
 
   const flResaleStatusLabel =
-    C.flResaleCertificate === "active"
+    site.flResaleCertificate === "active"
       ? "Active — Number on file"
-      : C.flResaleCertificate === "in-progress"
+      : site.flResaleCertificate === "in-progress"
         ? "Application in progress"
         : ON_REQUEST;
+
+  const heroHeadline = substitutePlaceholders(content.heroHeadline, ctx);
+  const footerDisclaimer = substitutePlaceholders(content.footerDisclaimer, ctx);
 
   return (
     <>
       <section className="border-b border-slate-200 bg-navy-950">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-navy-200">
-            Credentials &amp; Compliance
+            {content.heroEyebrow}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Verify {SITE.legalName} in 60 seconds.
+            {heroHeadline}
           </h1>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">
-            Public business verification information intended for distributor
-            onboarding, brand-partner compliance reviews, and procurement KYC.
-            Documentation packets &mdash; W-9, applicable tax certificates,
-            insurance, and references &mdash; are issued promptly on request to
-            our compliance team. Items currently in onboarding are noted below
-            so reviewers always see an accurate snapshot of our standing.
+            {content.heroIntro}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href={`mailto:${SITE.complianceEmail}?subject=${encodeURIComponent(
-                "Documentation packet request"
+              href={`mailto:${site.complianceEmail}?subject=${encodeURIComponent(
+                content.heroPrimaryCtaSubject
               )}`}
               className="inline-flex items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-navy-950 hover:bg-slate-100"
             >
               <FileText className="h-4 w-4" />
-              Request full documentation packet
+              {content.heroPrimaryCtaLabel}
             </a>
             <a
-              href={`mailto:${SITE.complianceEmail}`}
+              href={`mailto:${site.complianceEmail}`}
               className="inline-flex items-center justify-center rounded-md border border-white/30 bg-white/5 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10"
             >
-              {SITE.complianceEmail}
+              {site.complianceEmail}
             </a>
           </div>
         </div>
@@ -69,21 +84,19 @@ export default function CredentialsPage() {
           icon={<ShieldCheck className="h-5 w-5" />}
           title="Legal Entity"
           rows={[
-            { label: "Legal name", value: C.legalEntity },
-            { label: "Entity type", value: C.entityType },
-            { label: "Jurisdiction", value: C.jurisdiction },
-            { label: "Established", value: String(C.establishedYear) },
+            { label: "Legal name", value: site.legalName },
+            { label: "Entity type", value: site.entityType },
+            { label: "Jurisdiction", value: site.jurisdiction },
+            { label: "Established", value: String(site.establishedYear) },
             {
               label: "Florida Sunbiz",
-              value: C.sunbizDocumentNumber || ON_REQUEST,
+              value: site.sunbizDocumentNumber || ON_REQUEST,
               href: sunbizUrl,
-              hrefLabel: C.sunbizDocumentNumber
-                ? "View on Sunbiz"
-                : "Search Sunbiz",
+              hrefLabel: site.sunbizDocumentNumber ? "View on Sunbiz" : "Search Sunbiz",
             },
             {
               label: "Registered address",
-              value: `${SITE.address.line1}, ${SITE.address.city}, ${SITE.address.state} ${SITE.address.zip}`,
+              value: `${site.addressLine1}${site.addressLine2 ? `, ${site.addressLine2}` : ""}, ${site.addressCity}, ${site.addressState} ${site.addressZip}`,
             },
           ]}
         />
@@ -94,8 +107,8 @@ export default function CredentialsPage() {
           rows={[
             {
               label: "EIN (Employer Identification Number)",
-              value: C.einLast4
-                ? `XX-XXX${C.einLast4} (full on request)`
+              value: site.einLast4
+                ? `XX-XXX${site.einLast4} (full on request)`
                 : ON_REQUEST,
             },
             {
@@ -104,7 +117,7 @@ export default function CredentialsPage() {
             },
             {
               label: "D-U-N-S Number",
-              value: C.dunsNumber || IN_ISSUANCE,
+              value: site.dunsNumber || IN_ISSUANCE,
             },
             {
               label: "W-9 (signed)",
@@ -119,26 +132,26 @@ export default function CredentialsPage() {
           rows={[
             {
               label: "Carrier",
-              value: C.insurance.insurer || IN_ISSUANCE,
+              value: site.insuranceInsurer || IN_ISSUANCE,
             },
             {
               label: "General Liability",
               value:
-                C.insurance.insurer && C.insurance.generalLiability
-                  ? C.insurance.generalLiability
+                site.insuranceInsurer && site.insuranceGeneralLiability
+                  ? site.insuranceGeneralLiability
                   : "Pending placement",
             },
             {
               label: "Product Liability",
               value:
-                C.insurance.insurer && C.insurance.productLiability
-                  ? C.insurance.productLiability
+                site.insuranceInsurer && site.insuranceProductLiability
+                  ? site.insuranceProductLiability
                   : "Pending placement",
             },
             {
               label: "Certificate of Insurance",
-              value: C.insurance.insurer
-                ? C.insurance.coiOnRequest
+              value: site.insuranceInsurer
+                ? site.insuranceCoiOnRequest
                   ? "Available on request, addressed to your specific certificate holder"
                   : "On file"
                 : "Available once policy is active",
@@ -158,21 +171,21 @@ export default function CredentialsPage() {
             },
             {
               label: "Amazon storefront",
-              value: C.amazonStorefrontUrl
+              value: site.amazonStorefrontUrl
                 ? "Active U.S. marketplace storefront"
                 : ON_REQUEST,
-              href: C.amazonStorefrontUrl || undefined,
-              hrefLabel: C.amazonStorefrontUrl ? "View on Amazon" : undefined,
+              href: site.amazonStorefrontUrl || undefined,
+              hrefLabel: site.amazonStorefrontUrl ? "View on Amazon" : undefined,
             },
             {
               label: "Bank reference",
-              value: C.bankReferenceOnRequest
+              value: site.bankReferenceOnRequest
                 ? "Available on request, on bank letterhead"
                 : "On file",
             },
             {
               label: "Trade references",
-              value: C.tradeReferencesOnRequest
+              value: site.tradeReferencesOnRequest
                 ? "Available on request"
                 : "On file",
             },
@@ -185,14 +198,14 @@ export default function CredentialsPage() {
           rows={[
             {
               label: "Compliance email",
-              value: SITE.complianceEmail,
-              href: `mailto:${SITE.complianceEmail}`,
+              value: site.complianceEmail,
+              href: `mailto:${site.complianceEmail}`,
               hrefLabel: "Email",
             },
             {
               label: "Phone",
-              value: SITE.phone,
-              href: `tel:${SITE.phoneRaw}`,
+              value: site.phoneDisplay,
+              href: `tel:${site.phoneRaw}`,
               hrefLabel: "Call",
             },
             {
@@ -203,12 +216,7 @@ export default function CredentialsPage() {
         />
 
         <p className="mt-12 max-w-3xl text-xs leading-6 text-slate-500">
-          The information on this page is provided for legitimate vendor
-          onboarding and compliance review purposes only. Specific identifying
-          numbers (EIN, FL Resale Certificate Number, full insurance policy
-          numbers) are released directly from {SITE.complianceEmail} upon
-          verified request, and may be addressed to the requesting
-          organization&rsquo;s certificate holder where applicable.
+          {footerDisclaimer}
         </p>
       </section>
     </>

@@ -4,7 +4,13 @@ import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./sanity/schemas";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 
-const SINGLETON_TYPES = new Set(["siteSettings", "homePage"]);
+const SINGLETON_TYPES = new Set([
+  "siteSettings",
+  "homePage",
+  "aboutPage",
+  "wholesalePage",
+  "credentialsPage",
+]);
 const SINGLETON_ACTIONS = new Set(["publish", "discardChanges", "restore"]);
 
 export default defineConfig({
@@ -38,6 +44,36 @@ export default defineConfig({
                   .schemaType("homePage")
                   .documentId("homePage")
                   .title("Homepage")
+              ),
+            // Singleton: About Page
+            S.listItem()
+              .title("About Page")
+              .id("aboutPage")
+              .child(
+                S.document()
+                  .schemaType("aboutPage")
+                  .documentId("aboutPage")
+                  .title("About Page")
+              ),
+            // Singleton: Wholesale Page
+            S.listItem()
+              .title("Wholesale Page")
+              .id("wholesalePage")
+              .child(
+                S.document()
+                  .schemaType("wholesalePage")
+                  .documentId("wholesalePage")
+                  .title("Wholesale Page")
+              ),
+            // Singleton: Credentials Page
+            S.listItem()
+              .title("Credentials Page")
+              .id("credentialsPage")
+              .child(
+                S.document()
+                  .schemaType("credentialsPage")
+                  .documentId("credentialsPage")
+                  .title("Credentials Page")
               ),
             S.divider(),
             // Regular collections

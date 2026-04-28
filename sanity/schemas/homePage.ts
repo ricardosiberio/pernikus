@@ -4,10 +4,12 @@ export const homePage = defineType({
   name: "homePage",
   title: "Homepage",
   type: "document",
-  // Singleton — only one instance ever exists
   fieldsets: [
     { name: "hero", title: "Hero Section", options: { collapsible: true, collapsed: false } },
-    { name: "trust", title: "Trust Signals Strip", options: { collapsible: true, collapsed: true } },
+    { name: "valueProps", title: "Value Props Strip (3 cards under hero)", options: { collapsible: true, collapsed: true } },
+    { name: "categories", title: "Categories Section", options: { collapsible: true, collapsed: true } },
+    { name: "featured", title: "Featured Products Section", options: { collapsible: true, collapsed: true } },
+    { name: "wholesaleCta", title: "Wholesale CTA Banner (bottom)", options: { collapsible: true, collapsed: true } },
   ],
   fields: [
     // ---------------- Hero ----------------
@@ -15,14 +17,13 @@ export const homePage = defineType({
       name: "heroEyebrow",
       title: "Hero Eyebrow Text",
       type: "string",
-      description: 'Small uppercase text above the headline, e.g. "Florida-based multi-channel retailer"',
+      description: 'Small uppercase text above the headline.',
       fieldset: "hero",
     }),
     defineField({
       name: "heroHeadline",
       title: "Hero Headline",
       type: "string",
-      description: "Main page title — short and punchy.",
       fieldset: "hero",
       validation: (r) => r.max(120),
     }),
@@ -31,7 +32,6 @@ export const homePage = defineType({
       title: "Hero Subheadline",
       type: "text",
       rows: 3,
-      description: "1-2 sentence supporting paragraph below the headline.",
       fieldset: "hero",
       validation: (r) => r.max(400),
     }),
@@ -39,21 +39,18 @@ export const homePage = defineType({
       name: "heroPrimaryCtaLabel",
       title: "Primary CTA Button Label",
       type: "string",
-      description: 'e.g. "Shop the catalog"',
       fieldset: "hero",
     }),
     defineField({
       name: "heroPrimaryCtaUrl",
       title: "Primary CTA URL",
       type: "string",
-      description: 'Internal path like "/shop" or full URL.',
       fieldset: "hero",
     }),
     defineField({
       name: "heroSecondaryCtaLabel",
       title: "Secondary CTA Button Label",
       type: "string",
-      description: 'e.g. "Wholesale inquiries"',
       fieldset: "hero",
     }),
     defineField({
@@ -63,37 +60,98 @@ export const homePage = defineType({
       fieldset: "hero",
     }),
 
-    // ---------------- Trust Signals ----------------
+    // ---------------- Value Props ----------------
     defineField({
-      name: "trustSignals",
-      title: "Trust Signal Items",
+      name: "valueProps",
+      title: "Value Prop Cards",
       type: "array",
-      description: "Short credibility points displayed in a row across the homepage.",
-      fieldset: "trust",
+      description: "3 cards displayed in a row under the hero. Icons stay fixed in code.",
+      fieldset: "valueProps",
       of: [
         {
           type: "object",
           fields: [
             defineField({
-              name: "label",
-              title: "Label",
+              name: "title",
+              title: "Title",
               type: "string",
-              description: 'e.g. "EIN-verified Florida LLC"',
               validation: (r) => r.required(),
             }),
             defineField({
-              name: "sublabel",
-              title: "Sublabel (optional)",
-              type: "string",
-              description: 'e.g. "Established 2023"',
+              name: "body",
+              title: "Body Text",
+              type: "text",
+              rows: 3,
+              validation: (r) => r.required(),
             }),
           ],
-          preview: {
-            select: { title: "label", subtitle: "sublabel" },
-          },
+          preview: { select: { title: "title", subtitle: "body" } },
         },
       ],
-      validation: (r) => r.max(6),
+      validation: (r) => r.max(3),
+    }),
+
+    // ---------------- Categories Section ----------------
+    defineField({
+      name: "categoriesEyebrow",
+      title: "Section Eyebrow",
+      type: "string",
+      description: 'Small uppercase text, e.g. "Categories"',
+      fieldset: "categories",
+    }),
+    defineField({
+      name: "categoriesHeadline",
+      title: "Section Headline",
+      type: "string",
+      description: 'e.g. "Shop by category"',
+      fieldset: "categories",
+    }),
+
+    // ---------------- Featured Products Section ----------------
+    defineField({
+      name: "featuredEyebrow",
+      title: "Section Eyebrow",
+      type: "string",
+      fieldset: "featured",
+    }),
+    defineField({
+      name: "featuredHeadline",
+      title: "Section Headline",
+      type: "string",
+      fieldset: "featured",
+    }),
+
+    // ---------------- Wholesale CTA Banner ----------------
+    defineField({
+      name: "wholesaleCtaEyebrow",
+      title: "Eyebrow",
+      type: "string",
+      fieldset: "wholesaleCta",
+    }),
+    defineField({
+      name: "wholesaleCtaHeadline",
+      title: "Headline",
+      type: "string",
+      fieldset: "wholesaleCta",
+    }),
+    defineField({
+      name: "wholesaleCtaBody",
+      title: "Body Text",
+      type: "text",
+      rows: 2,
+      fieldset: "wholesaleCta",
+    }),
+    defineField({
+      name: "wholesaleCtaButtonLabel",
+      title: "Button Label",
+      type: "string",
+      fieldset: "wholesaleCta",
+    }),
+    defineField({
+      name: "wholesaleCtaButtonUrl",
+      title: "Button URL",
+      type: "string",
+      fieldset: "wholesaleCta",
     }),
   ],
   preview: {
